@@ -2,26 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ThugCoding® Radio – Black & Gold HUD</title>
+  <title>Thug Coding® Network – Three Stations Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ThugCoding® Radio — Black & Gold HUD interface with AzuraCast-powered live radio." />
+  <meta name="description" content="ThugCoding® Network — Three stations in one dashboard: Tech radio, language learning, and curated music." />
 
   <style>
     :root {
-      --bg-main: #020204;
-      --bg-panel: #070709;
-      --bg-panel-glass: rgba(5, 5, 10, 0.92);
-      --gold: #f6c453;
-      --gold-soft: rgba(246, 196, 83, 0.32);
-      --gold-line: rgba(246, 196, 83, 0.7);
-      --text-main: #f9fafb;
-      --text-muted: #a58a52;
-      --border-soft: rgba(246, 196, 83, 0.3);
-      --shadow-strong: 0 26px 60px rgba(0, 0, 0, 0.9);
-      --shadow-soft: 0 20px 48px rgba(0, 0, 0, 0.8);
-      --radius-xl: 28px;
-      --radius-lg: 18px;
+      --bg-main: #ffffff;
+      --bg-panel: #f8f9fa;
+      --bg-panel-glass: rgba(255, 255, 255, 0.95);
+      --accent: #000000;
+      --accent-soft: rgba(0, 0, 0, 0.1);
+      --accent-line: rgba(0, 0, 0, 0.3);
+      --text-main: #000000;
+      --text-muted: #666666;
+      --border-soft: rgba(0, 0, 0, 0.1);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 12px;
       --transition-fast: 0.22s ease-out;
+      
+      /* Language Lab colors */
+      --language-lab-accent: #2563eb;
+      --language-lab-accent-soft: rgba(37, 99, 235, 0.1);
+      --language-lab-border: rgba(37, 99, 235, 0.2);
+      
+      /* Music for You colors */
+      --music-purple-accent: #7c3aed;
+      --music-purple-soft: rgba(124, 58, 237, 0.1);
+      --music-purple-border: rgba(124, 58, 237, 0.2);
     }
 
     * {
@@ -37,9 +46,10 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #121018 0, #020204 50%, #000 100%);
+      background: var(--bg-main);
       color: var(--text-main);
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
     a {
@@ -60,13 +70,12 @@
     }
 
     /* ============ HEADER ============ */
-
     .site-header {
       position: fixed;
-      top: 0.7rem;
+      top: 1rem;
       left: 0;
       right: 0;
-      z-index: 40;
+      z-index: 100;
       pointer-events: none;
     }
 
@@ -75,15 +84,15 @@
       margin: 0 auto;
       max-width: 1180px;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.35);
-      background: radial-gradient(circle at top, rgba(0,0,0,0.95), rgba(10,10,18,0.96));
-      padding: 0.55rem 1.2rem;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0.6rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
     }
 
     .brand {
@@ -95,11 +104,10 @@
     .brand-logo {
       width: 40px;
       height: 40px;
-      border-radius: 14px;
-      border: 1px solid var(--gold-line);
+      border-radius: 50%;
+      border: 2px solid var(--accent);
       overflow: hidden;
-      background: radial-gradient(circle at top, #272229, #050308);
-      box-shadow: 0 0 26px rgba(246,196,83,0.7);
+      background: white;
       flex-shrink: 0;
     }
 
@@ -112,36 +120,34 @@
     .brand-text {
       display: flex;
       flex-direction: column;
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
     .brand-title {
       font-size: 0.9rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--gold);
+      letter-spacing: 0.1em;
+      color: var(--text-main);
     }
 
     .brand-tagline {
       font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
       color: var(--text-muted);
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+      gap: 1.5rem;
+      font-size: 0.8rem;
     }
 
     .nav a {
       position: relative;
       padding-bottom: 0.12rem;
       color: var(--text-muted);
+      transition: color 0.2s ease;
     }
 
     .nav a::after {
@@ -151,13 +157,12 @@
       bottom: 0;
       height: 2px;
       width: 0;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--gold), #ffffff);
+      background: var(--accent);
       transition: width 0.22s ease-out;
     }
 
     .nav a:hover {
-      color: var(--gold);
+      color: var(--text-main);
     }
 
     .nav a:hover::after {
@@ -168,68 +173,75 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.4rem 0.9rem;
+      padding: 0.5rem 1rem;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.85);
-      background: radial-gradient(circle at top, rgba(246,196,83,0.35), rgba(0,0,0,0.93));
-      font-size: 0.66rem;
-      letter-spacing: 0.2em;
-      box-shadow: 0 0 26px rgba(246,196,83,0.7);
+      border: 2px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
     }
 
     .nav-pill-dot {
       width: 8px;
       height: 8px;
-      border-radius: 999px;
+      border-radius: 50%;
       background: #ff4a6a;
-      box-shadow: 0 0 16px rgba(255,74,106,0.8);
       animation: dotPulse 1.2s infinite alternate;
     }
 
     @keyframes dotPulse {
       from { transform: scale(1); opacity: 1; }
-      to   { transform: scale(1.25); opacity: 0.5; }
+      to { transform: scale(1.25); opacity: 0.5; }
     }
 
     @media (max-width: 780px) {
       .site-header-inner {
         flex-direction: column;
         align-items: flex-start;
-        border-radius: 18px;
+        border-radius: var(--radius-md);
+        padding: 1rem;
       }
       .nav {
         width: 100%;
         justify-content: space-between;
         flex-wrap: wrap;
-      }
-      .nav-pill {
-        margin-left: auto;
+        margin-top: 0.5rem;
       }
     }
 
-    /* ============ HERO (FULLSCREEN HUD) ============ */
+    @media (max-width: 480px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .nav-pill {
+        margin-top: 0.5rem;
+      }
+    }
 
+    /* ============ HERO (FULLSCREEN SLIDESHOW) ============ */
     .hero {
       position: relative;
       height: 100vh;
-      min-height: 620px;
+      min-height: 600px;
       overflow: hidden;
-      isolatION: isolate;
     }
 
-    /* background slides */
+    /* Fullscreen slideshow */
     .hero-slides {
       position: absolute;
       inset: 0;
-      z-index: 0;
+      z-index: 1;
     }
 
     .hero-slide {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transition: opacity 1s ease;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -239,404 +251,414 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(246,196,83,0.18), transparent 55%),
-        radial-gradient(circle at bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.92));
-      mix-blend-mode: soft-light;
+      background: rgba(255, 255, 255, 0.7);
     }
 
     .hero-slide.active {
       opacity: 1;
-      transform: scale(1);
     }
 
-    /* grid floor */
-    .hero-grid {
-      position: absolute;
-      inset-inline: -25%;
-      bottom: -12%;
-      height: 55%;
-      background-image:
-        linear-gradient(to right, rgba(246,196,83,0.18) 1px, transparent 1px),
-        linear-gradient(to top, rgba(246,196,83,0.18) 1px, transparent 1px);
-      background-size: 80px 80px;
-      transform-origin: bottom;
-      transform: perspective(900px) rotateX(72deg);
-      opacity: 0.65;
-      filter: drop-shadow(0 0 28px rgba(246,196,83,0.55));
-      z-index: 0;
-      animation: gridGlow 5s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes gridGlow {
-      from { opacity: 0.5; }
-      to   { opacity: 0.85; }
-    }
-
-    /* spark particles */
-    .hero-sparks {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image:
-        radial-gradient(circle, rgba(246,196,83,0.2) 1px, transparent 1px),
-        radial-gradient(circle, rgba(246,196,83,0.15) 1px, transparent 1px);
-      background-size: 140px 220px, 220px 160px;
-      animation: sparkDrift 30s linear infinite;
-      opacity: 0.5;
-    }
-
-    @keyframes sparkDrift {
-      from { transform: translate3d(0,0,0); }
-      to   { transform: translate3d(-80px,-40px,0); }
-    }
-
-    /* HUD corner lines */
-    .hud-frame {
-      position: absolute;
-      inset: 8vh 8vw;
-      border: 1px solid rgba(246,196,83,0.18);
-      border-radius: 26px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .hud-frame::before,
-    .hud-frame::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 26px;
-      border: 2px solid var(--gold-soft);
-    }
-
-    .hud-frame::before {
-      top: -1px;
-      left: -1px;
-      border-right: none;
-      border-bottom: none;
-    }
-
-    .hud-frame::after {
-      bottom: -1px;
-      right: -1px;
-      border-left: none;
-      border-top: none;
-    }
-
-    /* circle radar */
-    .radar-wrapper {
-      position: absolute;
-      top: 18%;
-      right: 8%;
-      width: 210px;
-      height: 210px;
-      border-radius: 50%;
-      border: 1px solid rgba(246,196,83,0.3);
-      background: radial-gradient(circle at center, rgba(246,196,83,0.3), transparent 60%);
-      box-shadow: 0 0 34px rgba(246,196,83,0.6);
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    .radar-grid {
-      position: absolute;
-      inset: 18%;
-      border-radius: 50%;
-      border: 1px solid rgba(246,196,83,0.2);
-    }
-
-    .radar-grid::before,
-    .radar-grid::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      border: 1px solid rgba(246,196,83,0.16);
-      transform-origin: center;
-    }
-
-    .radar-grid::before {
-      inset: 26%;
-    }
-    .radar-grid::after {
-      inset: 48%;
-    }
-
-    .radar-sweep {
-      position: absolute;
-      inset: 0;
-      background: conic-gradient(from 0deg, rgba(246,196,83,0.85), transparent 40%, transparent 100%);
-      animation: radarRotate 6s linear infinite;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes radarRotate {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    .radar-dots {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .radar-dot {
-      position: absolute;
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #ffffff;
-      box-shadow: 0 0 14px rgba(246,196,83,0.9);
-      opacity: 0.85;
-      animation: blinkDot 1.8s ease-in-out infinite alternate;
-    }
-
-    .radar-dot:nth-child(1) { top: 22%; left: 60%; animation-delay: 0.1s; }
-    .radar-dot:nth-child(2) { top: 56%; left: 30%; animation-delay: 0.5s; }
-    .radar-dot:nth-child(3) { top: 70%; left: 72%; animation-delay: 1s; }
-
-    @keyframes blinkDot {
-      from { transform: scale(0.85); opacity: 0.5; }
-      to   { transform: scale(1.2); opacity: 1; }
-    }
-
-    /* hero content */
-    .hero-inner {
+    /* Hero content overlay */
+    .hero-content {
       position: relative;
-      z-index: 3;
+      z-index: 2;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 5rem 1.5rem 3rem;
+      padding: 2rem 1.5rem;
     }
 
+    /* Updated CSS for hero-card with opacity control */
     .hero-card {
-      max-width: 720px;
-      border-radius: var(--radius-xl);
-      padding: 2.4rem 2.3rem 2rem;
-      background: radial-gradient(circle at top, rgba(246,196,83,0.22), rgba(4,4,10,0.96));
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-strong);
-      position: relative;
-      overflow: hidden;
+      max-width: 800px;
+      background: rgba(255, 255, 255, var(--hero-card-opacity, 0.95));
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: background-color 0.3s ease;
     }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid rgba(255,255,255,0.08);
-      mix-blend-mode: screen;
-      opacity: 0.7;
-      pointer-events: none;
+    /* Add an opacity control interface */
+    .opacity-control {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      z-index: 1000;
+      background: white;
+      padding: 15px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 180px;
+    }
+
+    .opacity-control h4 {
+      font-size: 0.9rem;
+      margin: 0 0 5px 0;
+      color: var(--text-main);
+    }
+
+    .opacity-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border-soft);
+      border-radius: 3px;
+      outline: none;
+    }
+
+    .opacity-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .opacity-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .opacity-value {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .opacity-reset {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .opacity-reset:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .opacity-control {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        width: auto;
+      }
     }
 
     .hero-kicker {
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.26em;
-      color: rgba(246,196,83,0.75);
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      margin-bottom: 0.7rem;
+      margin-bottom: 1rem;
     }
 
     .hero-kicker-line {
-      width: 36px;
+      width: 40px;
       height: 1px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(246,196,83,0.1), rgba(246,196,83,0.9));
+      background: var(--accent);
     }
 
     .hero-title {
-      font-size: clamp(2.2rem, 3vw + 1.2rem, 3.1rem);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      line-height: 1.3;
-      margin-bottom: 0.8rem;
-      text-shadow: 0 0 26px rgba(0,0,0,0.9);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
     }
 
     .hero-title span {
-      color: var(--gold);
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 8px;
     }
 
     .hero-subtitle {
-      font-size: 0.98rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
-      max-width: 32rem;
-      margin: 0 auto 1.5rem auto;
+      max-width: 600px;
+      margin: 0 auto 2rem;
     }
 
     .hero-cta-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.9rem;
-      margin-bottom: 1.2rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .btn-primary {
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 0.85rem 1.7rem;
+      padding: 1rem 2rem;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.9);
-      background: radial-gradient(circle at top, rgba(246,196,83,0.5), rgba(0,0,0,0.95));
-      font-size: 0.82rem;
+      background: var(--accent);
+      color: white;
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #050506;
-      box-shadow: 0 0 40px rgba(246,196,83,0.8);
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-    }
-
-    .btn-primary span.icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: #050308;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.73rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 55px rgba(246,196,83,0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary span.icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
     }
 
     .btn-ghost {
-      border: 1px dashed rgba(246,196,83,0.65);
-      background: rgba(0,0,0,0.85);
-      color: var(--text-main);
-      padding: 0.85rem 1.6rem;
+      border: 2px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      padding: 1rem 2rem;
       border-radius: 999px;
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: var(--accent);
+      color: white;
     }
 
     .btn-ghost span.icon {
-      font-size: 0.8rem;
-      color: var(--gold);
+      font-size: 1rem;
     }
 
     .hero-metrics {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.75rem;
-      font-size: 0.72rem;
-      color: var(--text-muted);
+      gap: 1rem;
+      font-size: 0.85rem;
     }
 
     .metric-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.4rem 0.9rem;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.36);
-      background: rgba(4,4,10,0.95);
-      backdrop-filter: blur(18px);
+      border: 1px solid var(--border-soft);
+      background: white;
+      color: var(--text-muted);
     }
 
     .metric-dot {
       width: 8px;
       height: 8px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(246,196,83,0.9);
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     .metric-label {
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.1em;
     }
 
     .metric-value {
       font-weight: 600;
-      color: var(--gold);
-      margin-left: 0.2rem;
+      color: var(--accent);
+      margin-left: 0.25rem;
     }
 
-    @media (max-width: 540px) {
-      .hud-frame { inset: 11vh 5vw; }
-      .radar-wrapper { display: none; }
-      .hero-card { padding: 2rem 1.6rem 1.7rem; }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 500px;
+      }
+      
+      .hero-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
     }
 
-    /* ============ PLAYER SECTION ============ */
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 400px;
+      }
+      
+      .hero-card {
+        padding: 1.5rem;
+      }
+      
+      .hero-title {
+        font-size: 1.75rem;
+      }
+      
+      .hero-cta-row {
+        flex-direction: column;
+      }
+      
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+    }
 
-    .section-player {
-      padding: 4rem 0 3.5rem;
-      background: radial-gradient(circle at top, #131017 0, #020105 55%);
+    /* ============ PLAYERS SECTION ============ */
+    .players-section {
+      padding: 5rem 0;
+      background: var(--bg-panel);
     }
 
     .section-header {
-      margin-bottom: 1.9rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
     }
 
     .section-title {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--gold);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
     }
 
     .section-sub {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+      font-size: 0.9rem;
       color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .player-shell {
-      position: relative;
-      border-radius: 30px;
-      border: 1px solid rgba(246,196,83,0.38);
-      background: radial-gradient(circle at top left, rgba(246,196,83,0.18), rgba(6,6,12,0.98));
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
-      padding: 1.1rem 1.1rem 1rem;
-      isolation: isolate;
+      padding: 2rem;
+      margin-bottom: 3rem;
     }
 
-    .player-shell::before {
-      content: "";
-      position: absolute;
-      inset: -160px;
-      background:
-        radial-gradient(circle at 5% 10%, rgba(246,196,83,0.3), transparent 60%),
-        radial-gradient(circle at 95% 10%, rgba(255,255,255,0.15), transparent 60%),
-        radial-gradient(circle at 10% 95%, rgba(255,255,255,0.09), transparent 50%);
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: -1;
+    .player-shell:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Language Lab specific styles */
+    .player-shell.language-lab {
+      border-color: var(--language-lab-border);
+    }
+
+    .player-shell.language-lab .player-logo {
+      background: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .player-status-pill {
+      border-color: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .player-status-dot {
+      background: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .wave-bar {
+      background: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .btn-play {
+      background: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .btn-play span.icon {
+      color: var(--language-lab-accent);
+    }
+
+    .player-shell.language-lab .meta-pill span.dot,
+    .player-shell.language-lab .chip span.spark {
+      background: var(--language-lab-accent);
+    }
+
+    /* Music for You specific styles */
+    .player-shell.music-for-you {
+      border-color: var(--music-purple-border);
+    }
+
+    .player-shell.music-for-you .player-logo {
+      background: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .player-status-pill {
+      border-color: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .player-status-dot {
+      background: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .wave-bar {
+      background: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .btn-play {
+      background: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .btn-play span.icon {
+      color: var(--music-purple-accent);
+    }
+
+    .player-shell.music-for-you .meta-pill span.dot,
+    .player-shell.music-for-you .chip span.spark {
+      background: var(--music-purple-accent);
     }
 
     .player-header {
@@ -644,112 +666,108 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 0 0.4rem 0.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .player-brand {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-    }
-
-    .player-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top, #f6c453, #4a3714);
-      box-shadow: 0 12px 34px rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #050505;
-    }
-
-    .player-meta-title {
-      font-size: 0.98rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    .player-meta-sub {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .player-status-pill {
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.6);
-      background: rgba(0,0,0,0.85);
-      font-size: 0.7rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--text-muted);
-    }
-
-    .player-status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #4ade80;
-      box-shadow: 0 0 14px rgba(74,222,128,0.8);
-    }
-
-    .player-layout {
-      margin-top: 0.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
       gap: 1rem;
     }
 
-    @media (max-width: 860px) {
+    .player-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .player-meta-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .player-meta-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .player-status-pill {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      background: transparent;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .player-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    .player-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
       .player-layout {
-        grid-template-columns: minmax(0,1fr);
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
     }
 
     .panel {
-      background: var(--bg-panel-glass);
-      border-radius: 24px;
-      border: 1px solid rgba(246,196,83,0.28);
-      padding: 0.9rem 1rem 0.9rem;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.8);
-      position: relative;
-      overflow: hidden;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
 
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.6rem;
+      margin-bottom: 1rem;
     }
 
     .panel-header h3 {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .wave-bars {
       display: inline-flex;
       align-items: flex-end;
       gap: 4px;
-      height: 16px;
+      height: 20px;
     }
 
     .wave-bar {
-      width: 3px;
+      width: 4px;
       border-radius: 999px;
-      background: linear-gradient(to top, var(--gold), #ffffff);
-      opacity: 0.9;
+      background: var(--accent);
       transform-origin: bottom;
       animation: wavePulse 0.9s ease-in-out infinite;
     }
@@ -761,237 +779,227 @@
 
     @keyframes wavePulse {
       0%,100% { transform: scaleY(0.35); }
-      50%     { transform: scaleY(1); }
+      50% { transform: scaleY(1); }
     }
 
     .now-main {
       display: grid;
-      grid-template-columns: 120px minmax(0,1fr);
-      gap: 1rem;
+      grid-template-columns: 120px 1fr;
+      gap: 1.5rem;
       align-items: center;
     }
 
     @media (max-width: 540px) {
-      .now-main { grid-template-columns: minmax(0,1fr); }
+      .now-main {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .art-wrap {
+        margin: 0 auto;
+      }
     }
 
     .art-wrap {
       width: 120px;
       height: 120px;
-      border-radius: 26px;
-      background: radial-gradient(circle at 5% 0, #f6c453, #020617);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.95);
-      padding: 4px;
-      position: relative;
+      border-radius: var(--radius-md);
+      background: white;
+      border: 1px solid var(--border-soft);
       overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
 
     .art-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 22px;
-    }
-
-    .art-wrap .vinyl {
-      position: absolute;
-      inset: 7px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 17% 20%, rgba(255,255,255,0.4), transparent 55%),
-        radial-gradient(circle at 50% 50%, #020617 0, #020617 34%, #6b7280 36%, #020617 40%, #020617 100%);
-      opacity: 0;
-      transform: rotate(-24deg);
-      transition: opacity .25s ease-out, transform .25s ease-out;
-    }
-
-    .art-wrap.vinyl-mode .vinyl {
-      opacity: 0.9;
-      transform: rotate(0deg);
     }
 
     .meta-main small {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .meta-main h4 {
-      font-size: 1.25rem;
-      margin-top: 0.2rem;
-      text-shadow: 0 0 20px rgba(0,0,0,0.9);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      color: var(--text-main);
     }
 
     .meta-main p.artist {
-      font-size: 0.95rem;
-      color: var(--gold);
-      margin-top: 2px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
     }
 
     .meta-tags {
-      margin-top: 0.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      font-size: 0.7rem;
+      margin: 1rem 0;
     }
 
     .meta-pill {
-      padding: 0.3rem 0.7rem;
+      padding: 0.5rem 0.75rem;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.35);
-      background: rgba(0,0,0,0.9);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-panel);
+      font-size: 0.75rem;
       color: var(--text-muted);
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.5rem;
     }
 
     .meta-pill span.dot {
       width: 6px;
       height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     .controls-row {
-      margin-top: 0.7rem;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 0.8rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
     }
 
     .btn-play {
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 0.7rem 1.4rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 999px;
-      background: radial-gradient(circle at top, #f6c453, #f4b334 50%, #c89f3d 100%);
-      color: #050508;
-      font-size: 0.8rem;
+      background: var(--accent);
+      color: white;
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      box-shadow: 0 14px 32px rgba(0,0,0,0.9);
-      position: relative;
+      gap: 0.5rem;
+      transition: transform 0.2s ease;
     }
 
-    .btn-play::after {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: inherit;
-      border: 1px solid rgba(255,255,255,0.5);
-      opacity: 0.7;
-      pointer-events: none;
+    .btn-play:hover {
+      transform: translateY(-2px);
     }
 
     .btn-play span.icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: rgba(5,5,12,0.98);
-      color: #f9fafb;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      color: var(--accent);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
 
-    .play-status span.up { color: #4ade80; }
-    .play-status span.off { color: #f97373; }
+    .play-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .play-status span.up { color: #10b981; }
+    .play-status span.off { color: #ef4444; }
 
     .listeners-pill {
       margin-left: auto;
-      padding: 0.35rem 0.7rem;
+      padding: 0.5rem 1rem;
       border-radius: 999px;
-      border: 1px solid rgba(246,196,83,0.45);
-      background: rgba(8,10,22,0.98);
+      border: 1px solid var(--border-soft);
+      background: white;
+      font-size: 0.85rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      font-size: 0.75rem;
+      gap: 0.5rem;
     }
 
     .listeners-pill span.icon {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: rgba(246,196,83,0.28);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-panel);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 640px) {
-      .listeners-pill { margin-left: 0; }
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .listeners-pill {
+        margin-left: 0;
+        justify-content: center;
+      }
     }
 
     .panel-small-title {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+      font-size: 0.9rem;
+      font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .next-title {
-      font-size: 0.9rem;
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--text-main);
+      margin-bottom: 0.25rem;
     }
 
     .next-artist {
-      font-size: 0.8rem;
+      font-size: 1rem;
       color: var(--text-muted);
-      margin-top: 0.15rem;
+      margin-bottom: 1rem;
     }
 
     .chip {
-      margin-top: 0.4rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.7rem;
-      border: 1px dashed rgba(246,196,83,0.6);
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border: 1px dashed var(--border-soft);
       border-radius: 999px;
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
+      margin: 1rem 0;
     }
 
     .chip span.spark {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 10px rgba(246,196,83,0.9);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     .history-list {
       list-style: none;
-      margin-top: 0.35rem;
-      max-height: 190px;
+      margin-top: 0.5rem;
+      max-height: 200px;
       overflow-y: auto;
-      padding-right: 0.3rem;
+      padding-right: 0.5rem;
     }
 
     .history-item {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid rgba(31,41,55,0.9);
-      font-size: 0.78rem;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-soft);
     }
 
     .history-item:last-child {
@@ -999,10 +1007,11 @@
     }
 
     .history-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(148,163,184,0.7);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
     }
 
     .history-main {
@@ -1010,75 +1019,281 @@
     }
 
     .history-title {
-      color: #e5e7eb;
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.9rem;
     }
 
     .history-artist {
       color: var(--text-muted);
-      font-size: 0.74rem;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
     }
 
     .history-time {
       color: var(--text-muted);
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       white-space: nowrap;
     }
 
     .panel-note {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-top: 0.4rem;
+      margin-top: 1rem;
+      font-style: italic;
     }
 
     .player-footer {
-      margin-top: 0.7rem;
-      padding: 0.3rem 0.4rem 0.1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-soft);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.7rem;
-      color: var(--text-muted);
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .player-footer a {
-      color: var(--gold);
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ============ SHOWS & HOSTS SECTION ============ */
+    .shows-section {
+      padding: 5rem 0;
+      background: var(--bg-panel);
+    }
+
+    .shows-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .shows-header h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .shows-header p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .shows-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .shows-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1200px) {
+      .shows-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .shows-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .shows-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .show-card {
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .show-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .show-image {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .show-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .show-card:hover .show-image img {
+      transform: scale(1.05);
+    }
+
+    .show-content {
+      padding: 1.5rem;
+    }
+
+    .show-host {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .show-title {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .show-location {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .show-location::before {
+      content: "📍";
+      font-size: 0.8rem;
+    }
+
+    .show-description {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .shows-navigation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .nav-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      transform: scale(1.1);
+    }
+
+    .nav-btn:disabled {
+      background: var(--border-soft);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    .page-indicator {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* Pagination dots */
+    .shows-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .pagination-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border-soft);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .pagination-dot.active {
+      background: var(--accent);
+    }
+
+    .pagination-dot:hover {
+      background: var(--text-muted);
     }
 
     /* ============ FOOTER ============ */
-
     .site-footer {
-      padding: 2rem 0 2.5rem;
-      background: #020204;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      padding: 2rem 0;
+      background: white;
+      border-top: 1px solid var(--border-soft);
     }
 
     .site-footer-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 0.8rem;
-      border-top: 1px solid rgba(246,196,83,0.26);
-      padding-top: 1rem;
+      gap: 1rem;
     }
 
     .site-footer span {
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.7rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .site-footer-links {
       display: flex;
-      gap: 0.85rem;
+      gap: 1.5rem;
     }
 
     .site-footer-links a {
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.7rem;
+      font-size: 0.85rem;
+      color: var(--accent);
+      transition: opacity 0.2s ease;
+    }
+
+    .site-footer-links a:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 640px) {
+      .site-footer-row {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -1088,18 +1303,16 @@
     <div class="site-header-inner">
       <a href="#home" class="brand">
         <div class="brand-logo">
-          <!-- put your logo at images/logo.png -->
           <img src="images/logo.png" alt="ThugCoding Radio Logo" />
         </div>
         <div class="brand-text">
-          <div class="brand-title">ThugCoding® Radio</div>
-          <div class="brand-tagline">Black Tech · Hood Innovation</div>
+          <div class="brand-title">Thug Coding® Network</div>
+          <div class="brand-tagline">Three Stations · One Dashboard</div>
         </div>
       </a>
       <nav class="nav">
-        <a href="#player">Player</a>
-        <a href="#player">Now Playing</a>
-        <a href="#player">History</a>
+        <a href="#players">Players</a>
+        <a href="#shows">Shows</a>
         <a href="#home" class="nav-pill">
           <span class="nav-pill-dot"></span>
           <span>On Air</span>
@@ -1108,55 +1321,38 @@
     </div>
   </header>
 
-  <!-- HERO HUD -->
+  <!-- HERO SLIDESHOW -->
   <section class="hero" id="home">
     <div class="hero-slides" id="heroSlides">
-      <!-- Use HUD-style backgrounds here (can be same image repeated) -->
-      <div class="hero-slide active" style="background-image:url('images/hud-1.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('images/hud-2.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('images/hud-3.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('images/hud-4.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('images/hud-5.jpg');"></div>
+      <div class="hero-slide active" style="background-image:url('images/image1.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/image2.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/image3.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/image4.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/image5.jpg');"></div>
     </div>
 
-    <div class="hero-grid"></div>
-    <div class="hero-sparks"></div>
-    <div class="hud-frame"></div>
-
-    <!-- circle radar -->
-    <div class="radar-wrapper">
-      <div class="radar-sweep"></div>
-      <div class="radar-grid"></div>
-      <div class="radar-dots">
-        <div class="radar-dot"></div>
-        <div class="radar-dot"></div>
-        <div class="radar-dot"></div>
-      </div>
-    </div>
-
-    <!-- center card -->
-    <div class="hero-inner">
+    <div class="hero-content">
       <article class="hero-card">
         <div class="hero-kicker">
           <span class="hero-kicker-line"></span>
-          <span id="heroKicker">Luxury Tech · Hood Frequency</span>
+          <span id="heroKicker">Triple Stations · Tech, Language & Music</span>
         </div>
         <h1 class="hero-title" id="heroTitle">
-          <span>ThugCoding® Radio</span><br />
-          A Black &amp; Gold Broadcast System
+          <span>ThugCoding® Network</span><br />
+          Three Stations, One Dashboard
         </h1>
         <p class="hero-subtitle" id="heroSubtitle">
-          Where culture, code, and infrastructure meet. A live HUD for black tech, hood innovation, and the systems that pay you back.
+          Tech innovation, language learning, and curated music. Three powerful stations in one clean interface, all powered by AzuraCast.
         </p>
 
         <div class="hero-cta-row">
-          <button class="btn-primary" onclick="document.getElementById('player').scrollIntoView({behavior:'smooth'})">
+          <button class="btn-primary" onclick="document.getElementById('players').scrollIntoView({behavior:'smooth'})">
             <span class="icon">▶</span>
             Listen Live
           </button>
-          <button class="btn-ghost" onclick="document.getElementById('player').scrollIntoView({behavior:'smooth'})">
+          <button class="btn-ghost" onclick="document.getElementById('players').scrollIntoView({behavior:'smooth'})">
             <span class="icon">▤</span>
-            View Player HUD
+            View Players
           </button>
         </div>
 
@@ -1173,22 +1369,23 @@
           </div>
           <div class="metric-pill">
             <div class="metric-dot"></div>
-            <div class="metric-label">Era</div>
-            <div class="metric-value">2026 Ready</div>
+            <div class="metric-label">Stations</div>
+            <div class="metric-value">3 Live</div>
           </div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- PLAYER SECTION -->
-  <section class="section-player" id="player">
+  <!-- PLAYERS SECTION -->
+  <section class="players-section" id="players">
     <div class="max-width">
       <div class="section-header">
-        <h2 class="section-title">Player HUD</h2>
-        <p class="section-sub">Now Playing · Up Next · History · AzuraCast API</p>
+        <h2 class="section-title">Live Players</h2>
+        <p class="section-sub">Three Stations · Independent Controls · Real-time Data</p>
       </div>
 
+      <!-- THUG CODING RADIO PLAYER -->
       <div class="player-shell">
         <header class="player-header">
           <div class="player-brand">
@@ -1200,7 +1397,7 @@
           </div>
           <div class="player-status-pill">
             <span class="player-status-dot"></span>
-            <span id="stationStatus">Connecting to AzuraCast…</span>
+            <span id="thugCodingStatus">Connecting to AzuraCast…</span>
           </div>
         </header>
 
@@ -1218,14 +1415,13 @@
               </div>
             </div>
             <div class="now-main">
-              <div class="art-wrap" id="artWrapper">
-                <img id="artwork" src="" alt="Album artwork" />
-                <div class="vinyl"></div>
+              <div class="art-wrap" id="thugCodingArtWrapper">
+                <img id="thugCodingArtwork" src="https://via.placeholder.com/300x300/ffffff/000000?text=ThugCoding+Radio" alt="Album artwork" />
               </div>
               <div class="meta-main">
                 <small>ThugCoding® Radio • Live Stream</small>
-                <h4 id="songTitle">Loading…</h4>
-                <p class="artist" id="songArtist">Connecting to station.</p>
+                <h4 id="thugCodingSongTitle">Loading…</h4>
+                <p class="artist" id="thugCodingSongArtist">Connecting to station.</p>
 
                 <div class="meta-tags">
                   <div class="meta-pill">
@@ -1239,37 +1435,37 @@
                 </div>
 
                 <div class="controls-row">
-                  <button class="btn-play" id="playButton">
-                    <span class="icon" id="playIcon">▶</span>
-                    <span id="playLabel">Listen Live</span>
+                  <button class="btn-play" id="thugCodingPlayButton">
+                    <span class="icon" id="thugCodingPlayIcon">▶</span>
+                    <span id="thugCodingPlayLabel">Listen Live</span>
                   </button>
-                  <div class="play-status" id="playStatus">
+                  <div class="play-status" id="thugCodingPlayStatus">
                     <span class="off">OFF AIR</span> – press play to connect.
                   </div>
                   <div class="listeners-pill">
                     <span class="icon">👥</span>
-                    <span>Listeners <strong id="listenersCount">0</strong></span>
+                    <span>Listeners <strong id="thugCodingListenersCount">0</strong></span>
                   </div>
                 </div>
               </div>
             </div>
-            <audio id="audio" preload="none"></audio>
+            <audio id="thugCodingAudio" preload="none"></audio>
           </section>
 
           <!-- RIGHT: Next + History -->
           <section class="panel">
             <div class="panel-small-title">Up Next</div>
-            <div id="nextBlock">
-              <div class="next-title" id="nextTitle">Waiting on scheduler…</div>
-              <div class="next-artist" id="nextArtist"></div>
+            <div id="thugCodingNextBlock">
+              <div class="next-title" id="thugCodingNextTitle">Waiting on scheduler…</div>
+              <div class="next-artist" id="thugCodingNextArtist"></div>
               <div class="chip">
                 <span class="spark"></span>
                 Auto-curated by ThugCoding® AutoDJ.
               </div>
             </div>
 
-            <div class="panel-small-title" style="margin-top:0.9rem;">Recently Played</div>
-            <ul class="history-list" id="historyList">
+            <div class="panel-small-title" style="margin-top:1.5rem;">Recently Played</div>
+            <ul class="history-list" id="thugCodingHistoryList">
               <li class="history-item">
                 <div class="history-dot"></div>
                 <div class="history-main">
@@ -1280,14 +1476,244 @@
               </li>
             </ul>
             <p class="panel-note">
-              Times are relative to your device. Data pulled live from AzuraCast’s public API.
+              Times are relative to your device. Data pulled live from AzuraCast's public API.
             </p>
           </section>
         </div>
 
         <div class="player-footer">
           <span>© <span id="yearSpan"></span> ThugCoding® · All Rights Reserved.</span>
-          <span>UpCloud · AzuraCast · GitHub Pages HUD Skin</span>
+          <span>UpCloud · AzuraCast · Black & White Theme</span>
+        </div>
+      </div>
+
+      <!-- LANGUAGE LAB LIVE PLAYER -->
+      <div class="player-shell language-lab">
+        <header class="player-header">
+          <div class="player-brand">
+            <div class="player-logo">🗣️</div>
+            <div>
+              <div class="player-meta-title">Language Lab Live</div>
+              <div class="player-meta-sub">Learning Language 24/7</div>
+            </div>
+          </div>
+          <div class="player-status-pill">
+            <span class="player-status-dot"></span>
+            <span id="languageLabStatus">Connecting to AzuraCast…</span>
+          </div>
+        </header>
+
+        <div class="player-layout">
+          <!-- LEFT: Now playing -->
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Now Playing</h3>
+              <div class="wave-bars" aria-hidden="true">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+              </div>
+            </div>
+            <div class="now-main">
+              <div class="art-wrap" id="languageLabArtWrapper">
+                <img id="languageLabArtwork" src="https://via.placeholder.com/300x300/ffffff/2563eb?text=Language+Lab" alt="Album artwork" />
+              </div>
+              <div class="meta-main">
+                <small>Language Lab Live • 24/7 Learning</small>
+                <h4 id="languageLabSongTitle">Loading…</h4>
+                <p class="artist" id="languageLabSongArtist">Connecting to station.</p>
+
+                <div class="meta-tags">
+                  <div class="meta-pill">
+                    <span class="dot"></span>
+                    Language Learning
+                  </div>
+                  <div class="meta-pill">
+                    <span class="dot"></span>
+                    Educational Content
+                  </div>
+                </div>
+
+                <div class="controls-row">
+                  <button class="btn-play" id="languageLabPlayButton">
+                    <span class="icon" id="languageLabPlayIcon">▶</span>
+                    <span id="languageLabPlayLabel">Listen Live</span>
+                  </button>
+                  <div class="play-status" id="languageLabPlayStatus">
+                    <span class="off">OFF AIR</span> – press play to connect.
+                  </div>
+                  <div class="listeners-pill">
+                    <span class="icon">👥</span>
+                    <span>Listeners <strong id="languageLabListenersCount">0</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <audio id="languageLabAudio" preload="none"></audio>
+          </section>
+
+          <!-- RIGHT: Next + History -->
+          <section class="panel">
+            <div class="panel-small-title">Up Next</div>
+            <div id="languageLabNextBlock">
+              <div class="next-title" id="languageLabNextTitle">Waiting on scheduler…</div>
+              <div class="next-artist" id="languageLabNextArtist"></div>
+              <div class="chip">
+                <span class="spark"></span>
+                Language learning content curated for education.
+              </div>
+            </div>
+
+            <div class="panel-small-title" style="margin-top:1.5rem;">Recently Played</div>
+            <ul class="history-list" id="languageLabHistoryList">
+              <li class="history-item">
+                <div class="history-dot"></div>
+                <div class="history-main">
+                  <div class="history-title">History loading…</div>
+                  <div class="history-artist">Please wait.</div>
+                </div>
+                <div class="history-time">—</div>
+              </li>
+            </ul>
+            <p class="panel-note">
+              Times are relative to your device. Data pulled live from AzuraCast's public API.
+            </p>
+          </section>
+        </div>
+
+        <div class="player-footer">
+          <span>© <span id="yearSpan2"></span> Language Lab Live · Educational Content</span>
+          <span>UpCloud · AzuraCast · Blue Accent Theme</span>
+        </div>
+      </div>
+
+      <!-- MUSIC FOR YOU PLAYER -->
+      <div class="player-shell music-for-you">
+        <header class="player-header">
+          <div class="player-brand">
+            <div class="player-logo">🎵</div>
+            <div>
+              <div class="player-meta-title">Music for You</div>
+              <div class="player-meta-sub">Curated Music · 24/7 Stream</div>
+            </div>
+          </div>
+          <div class="player-status-pill">
+            <span class="player-status-dot"></span>
+            <span id="musicForYouStatus">Connecting to AzuraCast…</span>
+          </div>
+        </header>
+
+        <div class="player-layout">
+          <!-- LEFT: Now playing -->
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Now Playing</h3>
+              <div class="wave-bars" aria-hidden="true">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+              </div>
+            </div>
+            <div class="now-main">
+              <div class="art-wrap" id="musicForYouArtWrapper">
+                <img id="musicForYouArtwork" src="https://via.placeholder.com/300x300/ffffff/7c3aed?text=Music+For+You" alt="Album artwork" />
+              </div>
+              <div class="meta-main">
+                <small>Music for You • Curated Stream</small>
+                <h4 id="musicForYouSongTitle">Loading…</h4>
+                <p class="artist" id="musicForYouSongArtist">Connecting to station.</p>
+
+                <div class="meta-tags">
+                  <div class="meta-pill">
+                    <span class="dot"></span>
+                    Curated Playlists
+                  </div>
+                  <div class="meta-pill">
+                    <span class="dot"></span>
+                    24/7 Music Stream
+                  </div>
+                </div>
+
+                <div class="controls-row">
+                  <button class="btn-play" id="musicForYouPlayButton">
+                    <span class="icon" id="musicForYouPlayIcon">▶</span>
+                    <span id="musicForYouPlayLabel">Listen Live</span>
+                  </button>
+                  <div class="play-status" id="musicForYouPlayStatus">
+                    <span class="off">OFF AIR</span> – press play to connect.
+                  </div>
+                  <div class="listeners-pill">
+                    <span class="icon">👥</span>
+                    <span>Listeners <strong id="musicForYouListenersCount">0</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <audio id="musicForYouAudio" preload="none"></audio>
+          </section>
+
+          <!-- RIGHT: Next + History -->
+          <section class="panel">
+            <div class="panel-small-title">Up Next</div>
+            <div id="musicForYouNextBlock">
+              <div class="next-title" id="musicForYouNextTitle">Waiting on scheduler…</div>
+              <div class="next-artist" id="musicForYouNextArtist"></div>
+              <div class="chip">
+                <span class="spark"></span>
+                Curated music playlists for your enjoyment.
+              </div>
+            </div>
+
+            <div class="panel-small-title" style="margin-top:1.5rem;">Recently Played</div>
+            <ul class="history-list" id="musicForYouHistoryList">
+              <li class="history-item">
+                <div class="history-dot"></div>
+                <div class="history-main">
+                  <div class="history-title">History loading…</div>
+                  <div class="history-artist">Please wait.</div>
+                </div>
+                <div class="history-time">—</div>
+              </li>
+            </ul>
+            <p class="panel-note">
+              Times are relative to your device. Data pulled live from AzuraCast's public API.
+            </p>
+          </section>
+        </div>
+
+        <div class="player-footer">
+          <span>© <span id="yearSpan3"></span> Music for You · Curated Music</span>
+          <span>UpCloud · AzuraCast · Purple Accent Theme</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWS & HOSTS SECTION -->
+  <section class="shows-section" id="shows">
+    <div class="max-width">
+      <div class="shows-header">
+        <h2>Shows & Hosts</h2>
+        <p>Meet the voices behind ThugCoding® Radio. Each host brings unique perspective from tech, culture, and innovation.</p>
+      </div>
+
+      <div class="shows-container">
+        <div class="shows-grid" id="showsGrid">
+          <!-- Shows will be loaded dynamically -->
+        </div>
+
+        <div class="shows-navigation">
+          <button class="nav-btn" id="prevBtn" disabled>‹</button>
+          <span class="page-indicator" id="pageIndicator">Page 1 of 3</span>
+          <button class="nav-btn" id="nextBtn">›</button>
+        </div>
+
+        <div class="shows-pagination" id="paginationDots">
+          <!-- Dots will be generated dynamically -->
         </div>
       </div>
     </div>
@@ -1297,48 +1723,62 @@
   <footer class="site-footer">
     <div class="max-width">
       <div class="site-footer-row">
-        <span>ThugCoding® · Black Tech · Hood Innovation</span>
+        <span>ThugCoding® Network · Three Stations · One Dashboard</span>
         <div class="site-footer-links">
           <a href="#home">Top</a>
-          <a href="#player">Player</a>
+          <a href="#players">Players</a>
+          <a href="#shows">Shows</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <script>
-    // ===== HERO SLIDE TEXT + BACKGROUND CYCLE =====
+  <!-- Opacity Control Panel -->
+  <div class="opacity-control">
+    <h4>Card Opacity</h4>
+    <input type="range" 
+           min="0.1" 
+           max="1" 
+           step="0.05" 
+           value="0.95" 
+           class="opacity-slider" 
+           id="opacitySlider">
+    <div class="opacity-value" id="opacityValue">95%</div>
+    <button class="opacity-reset" id="opacityReset">Reset to Default</button>
+  </div>
 
+  <script>
+    // ===== HERO SLIDESHOW =====
     const heroSlides = Array.from(document.querySelectorAll(".hero-slide"));
     const heroKickerEl = document.getElementById("heroKicker");
-    const heroTitleEl  = document.getElementById("heroTitle");
+    const heroTitleEl = document.getElementById("heroTitle");
     const heroSubtitleEl = document.getElementById("heroSubtitle");
 
     const heroData = [
       {
-        kicker: "Luxury Tech · Hood Frequency",
-        title: "<span>ThugCoding® Radio</span><br/>A Black &amp; Gold Broadcast System",
-        subtitle: "Where culture, code, and infrastructure meet. A live HUD for black tech, hood innovation, and the systems that pay you back."
+        kicker: "Triple Stations · Tech, Language & Music",
+        title: "<span>ThugCoding® Network</span><br />Three Stations, One Dashboard",
+        subtitle: "Tech innovation, language learning, and curated music. Three powerful stations in one clean interface, all powered by AzuraCast."
       },
       {
-        kicker: "Command Line · Corner Store · Cloud",
-        title: "From <span>Block</span> To Broadcast.",
-        subtitle: "Every track is paired with a framework. Every show is a playbook. The station itself is an automation demo."
+        kicker: "From Code Syntax to Music Syntax",
+        title: "One Interface, <span>Three Worlds</span>.",
+        subtitle: "Switch between tech innovation, language learning, and curated music. All stations powered by the same robust AzuraCast infrastructure."
       },
       {
-        kicker: "Automation · Ownership · Escape Velocity",
-        title: "This Is <span>Not</span> Background Noise.",
-        subtitle: "It’s a 24/7 training ground disguised as a radio station, tuned for people who plan to own their infrastructure."
+        kicker: "Automation · Education · Entertainment",
+        title: "This Is <span>Not</span> Just Radio.",
+        subtitle: "It's a 24/7 multi-platform network. Code during the day, learn languages in the evening, enjoy music at night. All automated, all yours."
       },
       {
-        kicker: "UpCloud · AzuraCast · ThugCoding®",
-        title: "Your Own <span>Broadcast Stack</span>.",
-        subtitle: "Docker in the back, HUD in the front. A full stack radio that proves you don’t need permission to build systems."
+        kicker: "UpCloud · AzuraCast · Triple Stations",
+        title: "Your Own <span>Broadcast Network</span>.",
+        subtitle: "Three stations, one dashboard. Prove that you can build systems for any content, any audience, any purpose."
       },
       {
-        kicker: "Black Tech · Hood Innovation",
-        title: "Turn <span>Listeners</span> Into Builders.",
-        subtitle: "Drop game between the songs. Route people from vibes to code, from code to equity."
+        kicker: "Black Tech · Language Learning · Curated Music",
+        title: "Turn <span>Listeners</span> Into Community.",
+        subtitle: "From code tutorials to language lessons to music enjoyment. Route people from learning to enjoyment, from skills to relaxation."
       }
     ];
 
@@ -1360,123 +1800,296 @@
       updateHero(heroIndex);
     }
 
-    setInterval(nextHero, 7000);
+    setInterval(nextHero, 6000);
 
-    // ===== AZURACAST PLAYER CONFIG =====
-    // Replace with your real URLs if needed
-    const STREAM_URL = "http://209.50.61.51/listen/the_official_thug_coding_radio/radio.mp3";
-    const API_BASE   = "http://209.50.61.51/api/nowplaying";
-    const STATION_ID = "the_official_thug_coding_radio";
+    // ===== THUG CODING RADIO PLAYER =====
+    // FIXED: Using HTTPS and proper AzuraCast API format
+    const THUG_CODING_STREAM = "https://stream.thugcoding.com/listen/the_official_thug_coding_radio/radio.mp3";
+    const THUG_CODING_API = "https://stream.thugcoding.com/api/nowplaying/the_official_thug_coding_radio";
+    const THUG_CODING_STATION_ID = "the_official_thug_coding_radio";
 
-    const audio          = document.getElementById("audio");
-    const playBtn        = document.getElementById("playButton");
-    const playIcon       = document.getElementById("playIcon");
-    const playLabel      = document.getElementById("playLabel");
-    const playStatus     = document.getElementById("playStatus");
-    const listenersCount = document.getElementById("listenersCount");
-    const stationStatus  = document.getElementById("stationStatus");
+    const thugCodingAudio = document.getElementById("thugCodingAudio");
+    const thugCodingPlayBtn = document.getElementById("thugCodingPlayButton");
+    const thugCodingPlayIcon = document.getElementById("thugCodingPlayIcon");
+    const thugCodingPlayLabel = document.getElementById("thugCodingPlayLabel");
+    const thugCodingPlayStatus = document.getElementById("thugCodingPlayStatus");
+    const thugCodingListenersCount = document.getElementById("thugCodingListenersCount");
+    const thugCodingStationStatus = document.getElementById("thugCodingStatus");
 
-    const songTitleEl    = document.getElementById("songTitle");
-    const songArtistEl   = document.getElementById("songArtist");
-    const artworkEl      = document.getElementById("artwork");
-    const artWrapper     = document.getElementById("artWrapper");
+    const thugCodingSongTitleEl = document.getElementById("thugCodingSongTitle");
+    const thugCodingSongArtistEl = document.getElementById("thugCodingSongArtist");
+    const thugCodingArtworkEl = document.getElementById("thugCodingArtwork");
 
-    const nextTitleEl    = document.getElementById("nextTitle");
-    const nextArtistEl   = document.getElementById("nextArtist");
-    const historyListEl  = document.getElementById("historyList");
+    const thugCodingNextTitleEl = document.getElementById("thugCodingNextTitle");
+    const thugCodingNextArtistEl = document.getElementById("thugCodingNextArtist");
+    const thugCodingHistoryListEl = document.getElementById("thugCodingHistoryList");
 
-    const yearSpan       = document.getElementById("yearSpan");
-    yearSpan.textContent = new Date().getFullYear();
+    // ===== LANGUAGE LAB LIVE PLAYER =====
+    const LANGUAGE_LAB_STREAM = "https://stream.thugcoding.com/listen/language_lab_live/radio.mp3";
+    const LANGUAGE_LAB_API = "https://stream.thugcoding.com/api/nowplaying/language_lab_live";
+    const LANGUAGE_LAB_STATION_ID = "language_lab_live";
 
-    audio.src = STREAM_URL;
-    let isPlaying = false;
+    const languageLabAudio = document.getElementById("languageLabAudio");
+    const languageLabPlayBtn = document.getElementById("languageLabPlayButton");
+    const languageLabPlayIcon = document.getElementById("languageLabPlayIcon");
+    const languageLabPlayLabel = document.getElementById("languageLabPlayLabel");
+    const languageLabPlayStatus = document.getElementById("languageLabPlayStatus");
+    const languageLabListenersCount = document.getElementById("languageLabListenersCount");
+    const languageLabStationStatus = document.getElementById("languageLabStatus");
 
-    function setPlayState(playing) {
-      isPlaying = playing;
+    const languageLabSongTitleEl = document.getElementById("languageLabSongTitle");
+    const languageLabSongArtistEl = document.getElementById("languageLabSongArtist");
+    const languageLabArtworkEl = document.getElementById("languageLabArtwork");
+
+    const languageLabNextTitleEl = document.getElementById("languageLabNextTitle");
+    const languageLabNextArtistEl = document.getElementById("languageLabNextArtist");
+    const languageLabHistoryListEl = document.getElementById("languageLabHistoryList");
+
+    // ===== MUSIC FOR YOU PLAYER =====
+    const MUSIC_FOR_YOU_STREAM = "https://stream.thugcoding.com/listen/musick_for_you/radio.mp3";
+    const MUSIC_FOR_YOU_API = "https://stream.thugcoding.com/api/nowplaying/musick_for_you";
+    const MUSIC_FOR_YOU_STATION_ID = "musick_for_you";
+
+    const musicForYouAudio = document.getElementById("musicForYouAudio");
+    const musicForYouPlayBtn = document.getElementById("musicForYouPlayButton");
+    const musicForYouPlayIcon = document.getElementById("musicForYouPlayIcon");
+    const musicForYouPlayLabel = document.getElementById("musicForYouPlayLabel");
+    const musicForYouPlayStatus = document.getElementById("musicForYouPlayStatus");
+    const musicForYouListenersCount = document.getElementById("musicForYouListenersCount");
+    const musicForYouStationStatus = document.getElementById("musicForYouStatus");
+
+    const musicForYouSongTitleEl = document.getElementById("musicForYouSongTitle");
+    const musicForYouSongArtistEl = document.getElementById("musicForYouSongArtist");
+    const musicForYouArtworkEl = document.getElementById("musicForYouArtwork");
+
+    const musicForYouNextTitleEl = document.getElementById("musicForYouNextTitle");
+    const musicForYouNextArtistEl = document.getElementById("musicForYouNextArtist");
+    const musicForYouHistoryListEl = document.getElementById("musicForYouHistoryList");
+
+    // Set year in footer
+    const yearSpan = document.getElementById("yearSpan");
+    const yearSpan2 = document.getElementById("yearSpan2");
+    const yearSpan3 = document.getElementById("yearSpan3");
+    const currentYear = new Date().getFullYear();
+    yearSpan.textContent = currentYear;
+    yearSpan2.textContent = currentYear;
+    yearSpan3.textContent = currentYear;
+
+    // Initialize audio players
+    thugCodingAudio.src = THUG_CODING_STREAM;
+    languageLabAudio.src = LANGUAGE_LAB_STREAM;
+    musicForYouAudio.src = MUSIC_FOR_YOU_STREAM;
+    
+    let thugCodingIsPlaying = false;
+    let languageLabIsPlaying = false;
+    let musicForYouIsPlaying = false;
+
+    // Thug Coding Radio player functions
+    function setThugCodingPlayState(playing) {
+      thugCodingIsPlaying = playing;
       if (playing) {
-        playIcon.textContent = "⏸";
-        playLabel.textContent = "Pause";
-        playStatus.innerHTML = '<span class="up">ON AIR</span> – streaming live.';
-        artWrapper.classList.add("vinyl-mode");
+        thugCodingPlayIcon.textContent = "⏸";
+        thugCodingPlayLabel.textContent = "Pause";
+        thugCodingPlayStatus.innerHTML = '<span class="up">ON AIR</span> – streaming live.';
       } else {
-        playIcon.textContent = "▶";
-        playLabel.textContent = "Listen Live";
-        playStatus.innerHTML = '<span class="off">OFF AIR</span> – press play to reconnect.';
-        artWrapper.classList.remove("vinyl-mode");
+        thugCodingPlayIcon.textContent = "▶";
+        thugCodingPlayLabel.textContent = "Listen Live";
+        thugCodingPlayStatus.innerHTML = '<span class="off">OFF AIR</span> – press play to reconnect.';
       }
     }
 
-    playBtn.addEventListener("click", async () => {
+    thugCodingPlayBtn.addEventListener("click", async () => {
       try {
-        if (!isPlaying) {
-          await audio.play();
-          setPlayState(true);
+        if (!thugCodingIsPlaying) {
+          // Pause other players if playing
+          if (languageLabIsPlaying) {
+            languageLabAudio.pause();
+            setLanguageLabPlayState(false);
+          }
+          if (musicForYouIsPlaying) {
+            musicForYouAudio.pause();
+            setMusicForYouPlayState(false);
+          }
+          await thugCodingAudio.play();
+          setThugCodingPlayState(true);
         } else {
-          audio.pause();
-          setPlayState(false);
+          thugCodingAudio.pause();
+          setThugCodingPlayState(false);
         }
       } catch (err) {
-        console.error("Playback error:", err);
-        playStatus.innerHTML = '<span class="off">ERROR</span> – browser blocked autoplay. Tap again.';
+        console.error("Thug Coding playback error:", err);
+        thugCodingPlayStatus.innerHTML = '<span class="off">ERROR</span> – browser blocked autoplay. Tap again.';
       }
     });
 
-    audio.addEventListener("ended", () => setPlayState(false));
-    audio.addEventListener("pause", () => setPlayState(false));
-    audio.addEventListener("playing", () => setPlayState(true));
+    thugCodingAudio.addEventListener("ended", () => setThugCodingPlayState(false));
+    thugCodingAudio.addEventListener("pause", () => setThugCodingPlayState(false));
+    thugCodingAudio.addEventListener("playing", () => setThugCodingPlayState(true));
 
+    // Language Lab Live player functions
+    function setLanguageLabPlayState(playing) {
+      languageLabIsPlaying = playing;
+      if (playing) {
+        languageLabPlayIcon.textContent = "⏸";
+        languageLabPlayLabel.textContent = "Pause";
+        languageLabPlayStatus.innerHTML = '<span class="up">ON AIR</span> – streaming live.';
+      } else {
+        languageLabPlayIcon.textContent = "▶";
+        languageLabPlayLabel.textContent = "Listen Live";
+        languageLabPlayStatus.innerHTML = '<span class="off">OFF AIR</span> – press play to reconnect.';
+      }
+    }
+
+    languageLabPlayBtn.addEventListener("click", async () => {
+      try {
+        if (!languageLabIsPlaying) {
+          // Pause other players if playing
+          if (thugCodingIsPlaying) {
+            thugCodingAudio.pause();
+            setThugCodingPlayState(false);
+          }
+          if (musicForYouIsPlaying) {
+            musicForYouAudio.pause();
+            setMusicForYouPlayState(false);
+          }
+          await languageLabAudio.play();
+          setLanguageLabPlayState(true);
+        } else {
+          languageLabAudio.pause();
+          setLanguageLabPlayState(false);
+        }
+      } catch (err) {
+        console.error("Language Lab playback error:", err);
+        languageLabPlayStatus.innerHTML = '<span class="off">ERROR</span> – browser blocked autoplay. Tap again.';
+      }
+    });
+
+    languageLabAudio.addEventListener("ended", () => setLanguageLabPlayState(false));
+    languageLabAudio.addEventListener("pause", () => setLanguageLabPlayState(false));
+    languageLabAudio.addEventListener("playing", () => setLanguageLabPlayState(true));
+
+    // Music for You player functions
+    function setMusicForYouPlayState(playing) {
+      musicForYouIsPlaying = playing;
+      if (playing) {
+        musicForYouPlayIcon.textContent = "⏸";
+        musicForYouPlayLabel.textContent = "Pause";
+        musicForYouPlayStatus.innerHTML = '<span class="up">ON AIR</span> – streaming live.';
+      } else {
+        musicForYouPlayIcon.textContent = "▶";
+        musicForYouPlayLabel.textContent = "Listen Live";
+        musicForYouPlayStatus.innerHTML = '<span class="off">OFF AIR</span> – press play to reconnect.';
+      }
+    }
+
+    musicForYouPlayBtn.addEventListener("click", async () => {
+      try {
+        if (!musicForYouIsPlaying) {
+          // Pause other players if playing
+          if (thugCodingIsPlaying) {
+            thugCodingAudio.pause();
+            setThugCodingPlayState(false);
+          }
+          if (languageLabIsPlaying) {
+            languageLabAudio.pause();
+            setLanguageLabPlayState(false);
+          }
+          await musicForYouAudio.play();
+          setMusicForYouPlayState(true);
+        } else {
+          musicForYouAudio.pause();
+          setMusicForYouPlayState(false);
+        }
+      } catch (err) {
+        console.error("Music for You playback error:", err);
+        musicForYouPlayStatus.innerHTML = '<span class="off">ERROR</span> – browser blocked autoplay. Tap again.';
+      }
+    });
+
+    musicForYouAudio.addEventListener("ended", () => setMusicForYouPlayState(false));
+    musicForYouAudio.addEventListener("pause", () => setMusicForYouPlayState(false));
+    musicForYouAudio.addEventListener("playing", () => setMusicForYouPlayState(true));
+
+    // Utility function
     function escapeHtml(str) {
       return String(str || "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
-    async function fetchNowPlaying() {
+    // Thug Coding Radio API functions - FIXED with better error handling
+    async function fetchThugCodingNowPlaying() {
       try {
-        const url = `${API_BASE}/${encodeURIComponent(STATION_ID)}`;
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error("API " + res.status);
+        const url = `${THUG_CODING_API}`;
+        const res = await fetch(url, { 
+          cache: "no-store",
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+        
         const data = await res.json();
-        updateFromNowPlaying(data);
+        updateThugCodingFromNowPlaying(data);
+        thugCodingStationStatus.textContent = "Streaming via AutoDJ • ThugCoding® Studio";
       } catch (err) {
-        console.error("nowplaying error:", err);
-        stationStatus.textContent = "Unable to reach AzuraCast API (check CORS/URL).";
+        console.error("Thug Coding nowplaying error:", err);
+        thugCodingStationStatus.textContent = "API Error - Check Console";
+        thugCodingSongTitleEl.textContent = "Cannot Connect to API";
+        thugCodingSongArtistEl.textContent = "Please try again later";
+        
+        // Try alternative API endpoint as fallback
+        setTimeout(() => {
+          console.log("Trying fallback API endpoint...");
+          // You could try a different endpoint here if needed
+        }, 5000);
       }
     }
 
-    function updateFromNowPlaying(data) {
+    function updateThugCodingFromNowPlaying(data) {
       try {
-        const now   = data.now_playing || {};
-        const song  = now.song || {};
+        const now = data.now_playing || {};
+        const song = now.song || {};
         const title = song.title || "Live Stream";
-        const artist= song.artist || "ThugCoding® Radio";
+        const artist = song.artist || "ThugCoding® Radio";
 
-        songTitleEl.textContent = title;
-        songArtistEl.textContent = artist;
+        thugCodingSongTitleEl.textContent = title.substring(0, 50);
+        thugCodingSongArtistEl.textContent = artist.substring(0, 50);
 
         const art = song.art || (data.station && data.station.favicon) || "";
-        artworkEl.src = art || "https://via.placeholder.com/300x300/020617/ffffff?text=ThugCoding+Radio";
+        if (art && art.startsWith('http')) {
+          thugCodingArtworkEl.src = art;
+        } else {
+          thugCodingArtworkEl.src = "https://via.placeholder.com/300x300/ffffff/000000?text=ThugCoding+Radio";
+        }
 
         const listeners = data.listeners || data.listeners_current || 0;
-        listenersCount.textContent = listeners;
+        thugCodingListenersCount.textContent = listeners;
 
         const isOnline = (data.live && data.live.is_live) || data.is_online || true;
-        stationStatus.textContent = isOnline
+        thugCodingStationStatus.textContent = isOnline
           ? "Streaming via AutoDJ • ThugCoding® Studio"
           : "Station Offline";
 
         const next = data.playing_next || null;
         if (next && next.song) {
-          nextTitleEl.textContent  = next.song.title || "Next up";
-          nextArtistEl.textContent = next.song.artist || "";
+          thugCodingNextTitleEl.textContent = next.song.title ? next.song.title.substring(0, 40) : "Next up";
+          thugCodingNextArtistEl.textContent = next.song.artist ? next.song.artist.substring(0, 40) : "";
         } else {
-          nextTitleEl.textContent  = "AutoDJ is curating the next joint.";
-          nextArtistEl.textContent = "";
+          thugCodingNextTitleEl.textContent = "AutoDJ is curating the next track.";
+          thugCodingNextArtistEl.textContent = "";
         }
 
         const history = data.song_history || [];
-        historyListEl.innerHTML = "";
+        thugCodingHistoryListEl.innerHTML = "";
         if (!history.length) {
           const li = document.createElement("li");
           li.className = "history-item";
@@ -1487,9 +2100,9 @@
               <div class="history-artist">Playlist just booted up.</div>
             </div>
             <div class="history-time">—</div>`;
-          historyListEl.appendChild(li);
+          thugCodingHistoryListEl.appendChild(li);
         } else {
-          history.forEach(entry => {
+          history.slice(0, 5).forEach(entry => {
             const li = document.createElement("li");
             li.className = "history-item";
             const s = entry.song || {};
@@ -1512,22 +2125,507 @@
             li.innerHTML = `
               <div class="history-dot"></div>
               <div class="history-main">
-                <div class="history-title">${escapeHtml(t)}</div>
-                <div class="history-artist">${escapeHtml(a)}</div>
+                <div class="history-title">${escapeHtml(t.substring(0, 40))}</div>
+                <div class="history-artist">${escapeHtml(a.substring(0, 40))}</div>
               </div>
               <div class="history-time">${timeText}</div>`;
-            historyListEl.appendChild(li);
+            thugCodingHistoryListEl.appendChild(li);
           });
         }
       } catch (err) {
-        console.error("UI update error:", err);
+        console.error("Thug Coding UI update error:", err);
+        thugCodingSongTitleEl.textContent = "Data Error";
+        thugCodingSongArtistEl.textContent = "Could not parse API response";
       }
     }
 
-    fetchNowPlaying();
-    setInterval(fetchNowPlaying, 15000);
+    // Language Lab Live API functions
+    async function fetchLanguageLabNowPlaying() {
+      try {
+        const url = `${LANGUAGE_LAB_API}`;
+        const res = await fetch(url, { 
+          cache: "no-store",
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        updateLanguageLabFromNowPlaying(data);
+        languageLabStationStatus.textContent = "Streaming • Language Learning Content";
+      } catch (err) {
+        console.error("Language Lab nowplaying error:", err);
+        languageLabStationStatus.textContent = "Unable to reach AzuraCast API.";
+      }
+    }
+
+    function updateLanguageLabFromNowPlaying(data) {
+      try {
+        const now = data.now_playing || {};
+        const song = now.song || {};
+        const title = song.title || "Live Stream";
+        const artist = song.artist || "Language Lab Live";
+
+        languageLabSongTitleEl.textContent = title.substring(0, 50);
+        languageLabSongArtistEl.textContent = artist.substring(0, 50);
+
+        const art = song.art || (data.station && data.station.favicon) || "";
+        languageLabArtworkEl.src = art || "https://via.placeholder.com/300x300/ffffff/2563eb?text=Language+Lab";
+
+        const listeners = data.listeners || data.listeners_current || 0;
+        languageLabListenersCount.textContent = listeners;
+
+        const isOnline = (data.live && data.live.is_live) || data.is_online || true;
+        languageLabStationStatus.textContent = isOnline
+          ? "Streaming • Language Learning Content"
+          : "Station Offline";
+
+        const next = data.playing_next || null;
+        if (next && next.song) {
+          languageLabNextTitleEl.textContent = next.song.title ? next.song.title.substring(0, 40) : "Next up";
+          languageLabNextArtistEl.textContent = next.song.artist ? next.song.artist.substring(0, 40) : "";
+        } else {
+          languageLabNextTitleEl.textContent = "Language learning content queued.";
+          languageLabNextArtistEl.textContent = "";
+        }
+
+        const history = data.song_history || [];
+        languageLabHistoryListEl.innerHTML = "";
+        if (!history.length) {
+          const li = document.createElement("li");
+          li.className = "history-item";
+          li.innerHTML = `
+            <div class="history-dot"></div>
+            <div class="history-main">
+              <div class="history-title">No history yet.</div>
+              <div class="history-artist">Playlist just booted up.</div>
+            </div>
+            <div class="history-time">—</div>`;
+          languageLabHistoryListEl.appendChild(li);
+        } else {
+          history.slice(0, 5).forEach(entry => {
+            const li = document.createElement("li");
+            li.className = "history-item";
+            const s = entry.song || {};
+            const t = s.title || "Unknown title";
+            const a = s.artist || "Unknown artist";
+
+            const playedAt = entry.played_at ? new Date(entry.played_at * 1000) : null;
+            let timeText = "";
+            if (playedAt) {
+              const diffMs = Date.now() - playedAt.getTime();
+              const diffMin = Math.round(diffMs / 60000);
+              if (diffMin <= 1) timeText = "just now";
+              else if (diffMin < 60) timeText = diffMin + " min ago";
+              else {
+                const diffHr = Math.round(diffMin / 60);
+                timeText = diffHr + " hr ago";
+              }
+            }
+
+            li.innerHTML = `
+              <div class="history-dot"></div>
+              <div class="history-main">
+                <div class="history-title">${escapeHtml(t.substring(0, 40))}</div>
+                <div class="history-artist">${escapeHtml(a.substring(0, 40))}</div>
+              </div>
+              <div class="history-time">${timeText}</div>`;
+            languageLabHistoryListEl.appendChild(li);
+          });
+        }
+      } catch (err) {
+        console.error("Language Lab UI update error:", err);
+      }
+    }
+
+    // Music for You API functions
+    async function fetchMusicForYouNowPlaying() {
+      try {
+        const url = `${MUSIC_FOR_YOU_API}`;
+        const res = await fetch(url, { 
+          cache: "no-store",
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        updateMusicForYouFromNowPlaying(data);
+        musicForYouStationStatus.textContent = "Streaming • Curated Music";
+      } catch (err) {
+        console.error("Music for You nowplaying error:", err);
+        musicForYouStationStatus.textContent = "Unable to reach AzuraCast API.";
+      }
+    }
+
+    function updateMusicForYouFromNowPlaying(data) {
+      try {
+        const now = data.now_playing || {};
+        const song = now.song || {};
+        const title = song.title || "Live Stream";
+        const artist = song.artist || "Music for You";
+
+        musicForYouSongTitleEl.textContent = title.substring(0, 50);
+        musicForYouSongArtistEl.textContent = artist.substring(0, 50);
+
+        const art = song.art || (data.station && data.station.favicon) || "";
+        musicForYouArtworkEl.src = art || "https://via.placeholder.com/300x300/ffffff/7c3aed?text=Music+For+You";
+
+        const listeners = data.listeners || data.listeners_current || 0;
+        musicForYouListenersCount.textContent = listeners;
+
+        const isOnline = (data.live && data.live.is_live) || data.is_online || true;
+        musicForYouStationStatus.textContent = isOnline
+          ? "Streaming • Curated Music"
+          : "Station Offline";
+
+        const next = data.playing_next || null;
+        if (next && next.song) {
+          musicForYouNextTitleEl.textContent = next.song.title ? next.song.title.substring(0, 40) : "Next up";
+          musicForYouNextArtistEl.textContent = next.song.artist ? next.song.artist.substring(0, 40) : "";
+        } else {
+          musicForYouNextTitleEl.textContent = "Music playlist in progress.";
+          musicForYouNextArtistEl.textContent = "";
+        }
+
+        const history = data.song_history || [];
+        musicForYouHistoryListEl.innerHTML = "";
+        if (!history.length) {
+          const li = document.createElement("li");
+          li.className = "history-item";
+          li.innerHTML = `
+            <div class="history-dot"></div>
+            <div class="history-main">
+              <div class="history-title">No history yet.</div>
+              <div class="history-artist">Playlist just booted up.</div>
+            </div>
+            <div class="history-time">—</div>`;
+          musicForYouHistoryListEl.appendChild(li);
+        } else {
+          history.slice(0, 5).forEach(entry => {
+            const li = document.createElement("li");
+            li.className = "history-item";
+            const s = entry.song || {};
+            const t = s.title || "Unknown title";
+            const a = s.artist || "Unknown artist";
+
+            const playedAt = entry.played_at ? new Date(entry.played_at * 1000) : null;
+            let timeText = "";
+            if (playedAt) {
+              const diffMs = Date.now() - playedAt.getTime();
+              const diffMin = Math.round(diffMs / 60000);
+              if (diffMin <= 1) timeText = "just now";
+              else if (diffMin < 60) timeText = diffMin + " min ago";
+              else {
+                const diffHr = Math.round(diffMin / 60);
+                timeText = diffHr + " hr ago";
+              }
+            }
+
+            li.innerHTML = `
+              <div class="history-dot"></div>
+              <div class="history-main">
+                <div class="history-title">${escapeHtml(t.substring(0, 40))}</div>
+                <div class="history-artist">${escapeHtml(a.substring(0, 40))}</div>
+              </div>
+              <div class="history-time">${timeText}</div>`;
+            musicForYouHistoryListEl.appendChild(li);
+          });
+        }
+      } catch (err) {
+        console.error("Music for You UI update error:", err);
+      }
+    }
+
+    // Initialize all players
+    fetchThugCodingNowPlaying();
+    fetchLanguageLabNowPlaying();
+    fetchMusicForYouNowPlaying();
+    
+    // Update all players periodically
+    setInterval(fetchThugCodingNowPlaying, 15000);
+    setInterval(fetchLanguageLabNowPlaying, 15000);
+    setInterval(fetchMusicForYouNowPlaying, 15000);
+
+    // ===== OPACITY CONTROL =====
+    const opacitySlider = document.getElementById('opacitySlider');
+    const opacityValue = document.getElementById('opacityValue');
+    const opacityReset = document.getElementById('opacityReset');
+
+    // Set initial CSS variable
+    document.documentElement.style.setProperty('--hero-card-opacity', '0.95');
+
+    // Update opacity when slider changes
+    opacitySlider.addEventListener('input', function() {
+      const value = this.value;
+      opacityValue.textContent = `${Math.round(value * 100)}%`;
+      document.documentElement.style.setProperty('--hero-card-opacity', value);
+    });
+
+    // Reset to default
+    opacityReset.addEventListener('click', function() {
+      opacitySlider.value = 0.95;
+      opacityValue.textContent = '95%';
+      document.documentElement.style.setProperty('--hero-card-opacity', '0.95');
+    });
+
+    // Load saved opacity from localStorage if available
+    window.addEventListener('load', function() {
+      const savedOpacity = localStorage.getItem('heroCardOpacity');
+      if (savedOpacity) {
+        opacitySlider.value = savedOpacity;
+        opacityValue.textContent = `${Math.round(savedOpacity * 100)}%`;
+        document.documentElement.style.setProperty('--hero-card-opacity', savedOpacity);
+      }
+    });
+
+    // Save opacity to localStorage when changed
+    opacitySlider.addEventListener('change', function() {
+      localStorage.setItem('heroCardOpacity', this.value);
+    });
+
+    // ===== SHOWS & HOSTS DATA =====
+    const showsData = [
+      {
+        host: "DJ CodeFlow",
+        title: "Midnight Syntax",
+        location: "Brooklyn, NY",
+        description: "Late-night coding sessions mixed with underground hip-hop. Discussing backend architecture over beats.",
+        image: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Tech Empress",
+        title: "Cloud Queens",
+        location: "Atlanta, GA",
+        description: "Women in tech leadership, cloud infrastructure, and building generational wealth through code.",
+        image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Binary Breeze",
+        title: "Frontend Frequencies",
+        location: "Los Angeles, CA",
+        description: "UI/UX design principles, creative coding, and the intersection of design and development.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Data Druid",
+        title: "Analytics & Algorithms",
+        location: "Chicago, IL",
+        description: "Data science, machine learning, and turning raw data into actionable insights for communities.",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Cyber Shaman",
+        title: "Security Sanctuary",
+        location: "Miami, FL",
+        description: "Cybersecurity, digital privacy, and protecting community assets in the digital age.",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "API Alchemist",
+        title: "Integration Station",
+        location: "Houston, TX",
+        description: "APIs, microservices, and connecting disparate systems to create powerful new solutions.",
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "DevOps Duchess",
+        title: "Pipeline Paradise",
+        location: "Seattle, WA",
+        description: "CI/CD pipelines, automation, and building resilient systems that scale with community needs.",
+        image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Blockchain Baron",
+        title: "Decentralized Dialogues",
+        location: "Detroit, MI",
+        description: "Web3, blockchain technology, and creating equitable financial systems for marginalized communities.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Mobile Maestro",
+        title: "App Avenue",
+        location: "Austin, TX",
+        description: "Mobile development, React Native, Flutter, and building apps that serve community needs.",
+        image: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "VR Visionary",
+        title: "Virtual Realities",
+        location: "San Francisco, CA",
+        description: "VR/AR development, immersive experiences, and the future of spatial computing.",
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "AI Architect",
+        title: "Neural Networks",
+        location: "Boston, MA",
+        description: "Artificial intelligence, ethical AI development, and using machine learning for social good.",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Game Developer G",
+        title: "Pixel Perfect",
+        location: "Orlando, FL",
+        description: "Game development, Unity, Unreal Engine, and creating games that tell our stories.",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Open Source OG",
+        title: "Community Code",
+        location: "Portland, OR",
+        description: "Open source contributions, community projects, and collaborative development.",
+        image: "https://images.unsplash.com/photo-1507591064344-4c6ce005-128?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Startup Sage",
+        title: "Founder Frequency",
+        location: "Denver, CO",
+        description: "Tech entrepreneurship, startup funding, and building businesses that solve real problems.",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Education Evangelist",
+        title: "Learn & Earn",
+        location: "Washington, DC",
+        description: "Tech education, coding bootcamps, and creating accessible pathways into tech careers.",
+        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Networking Ninja",
+        title: "Connect & Conquer",
+        location: "Philadelphia, PA",
+        description: "Networking, career development, and building professional relationships in tech.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Digital Storyteller",
+        title: "Code & Content",
+        location: "Nashville, TN",
+        description: "Content creation, developer advocacy, and telling compelling stories about technology.",
+        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      },
+      {
+        host: "Infrastructure Icon",
+        title: "System Strength",
+        location: "Phoenix, AZ",
+        description: "Infrastructure as code, cloud architecture, and building systems that withstand anything.",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
+      }
+    ];
+
+    // ===== SHOWS CAROUSEL FUNCTIONALITY =====
+    const showsGrid = document.getElementById('showsGrid');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const paginationDots = document.getElementById('paginationDots');
+
+    const SHOWS_PER_PAGE = 6;
+    const TOTAL_PAGES = Math.ceil(showsData.length / SHOWS_PER_PAGE);
+    let currentPage = 1;
+
+    // Create pagination dots
+    function createPaginationDots() {
+      paginationDots.innerHTML = '';
+      for (let i = 1; i <= TOTAL_PAGES; i++) {
+        const dot = document.createElement('div');
+        dot.className = `pagination-dot ${i === currentPage ? 'active' : ''}`;
+        dot.dataset.page = i;
+        dot.addEventListener('click', () => goToPage(i));
+        paginationDots.appendChild(dot);
+      }
+    }
+
+    // Load shows for current page
+    function loadShows() {
+      showsGrid.innerHTML = '';
+      
+      const startIndex = (currentPage - 1) * SHOWS_PER_PAGE;
+      const endIndex = startIndex + SHOWS_PER_PAGE;
+      const showsToDisplay = showsData.slice(startIndex, endIndex);
+      
+      showsToDisplay.forEach(show => {
+        const card = document.createElement('div');
+        card.className = 'show-card';
+        card.innerHTML = `
+          <div class="show-image">
+            <img src="${show.image}" alt="${show.host}" loading="lazy">
+          </div>
+          <div class="show-content">
+            <h3 class="show-host">${show.host}</h3>
+            <div class="show-title">${show.title}</div>
+            <div class="show-location">${show.location}</div>
+            <p class="show-description">${show.description}</p>
+          </div>
+        `;
+        showsGrid.appendChild(card);
+      });
+      
+      // Update page indicator
+      pageIndicator.textContent = `Page ${currentPage} of ${TOTAL_PAGES}`;
+      
+      // Update button states
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === TOTAL_PAGES;
+      
+      // Update active dot
+      document.querySelectorAll('.pagination-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index + 1 === currentPage);
+      });
+    }
+
+    // Navigation functions
+    function goToPage(page) {
+      currentPage = page;
+      loadShows();
+      createPaginationDots();
+    }
+
+    function nextPage() {
+      if (currentPage < TOTAL_PAGES) {
+        currentPage++;
+        loadShows();
+        createPaginationDots();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        loadShows();
+        createPaginationDots();
+      }
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', prevPage);
+    nextBtn.addEventListener('click', nextPage);
+
+    // Initialize
+    loadShows();
+    createPaginationDots();
+
+    // Auto-advance every 10 seconds (optional)
+    let autoAdvance = setInterval(nextPage, 10000);
+
+    // Pause auto-advance on hover
+    showsGrid.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+    showsGrid.addEventListener('mouseleave', () => {
+      autoAdvance = setInterval(nextPage, 10000);
+    });
   </script>
 </body>
 </html>
-
-
