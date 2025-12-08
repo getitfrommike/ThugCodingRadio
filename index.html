@@ -197,28 +197,65 @@
     }
 
     @media (max-width: 780px) {
+      .site-header {
+        top: 0.5rem; /* Reduced top spacing on mobile */
+        padding: 0 1rem; /* Added padding to prevent header touching screen edges */
+      }
+      
       .site-header-inner {
         flex-direction: column;
         align-items: flex-start;
         border-radius: var(--radius-md);
-        padding: 1rem;
+        padding: 0.75rem 1rem; /* Reduced padding on mobile */
       }
+      
       .nav {
         width: 100%;
         justify-content: space-between;
         flex-wrap: wrap;
         margin-top: 0.5rem;
+        gap: 1rem; /* Added gap for better spacing */
+      }
+      
+      /* Add margin to hero to prevent header overlap */
+      .hero {
+        margin-top: 100px; /* Added to create space below fixed header */
+        min-height: calc(100vh - 100px); /* Adjust min-height to account for header */
+      }
+      
+      .hero-content {
+        padding-top: 2rem; /* Added extra padding at top for mobile */
       }
     }
 
     @media (max-width: 480px) {
+      .site-header {
+        top: 0.5rem;
+        padding: 0 0.75rem;
+      }
+      
+      .site-header-inner {
+        padding: 0.5rem 0.75rem;
+      }
+      
       .nav {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
       }
+      
       .nav-pill {
         margin-top: 0.5rem;
+      }
+      
+      /* Adjust hero margin for very small screens */
+      .hero {
+        margin-top: 120px; /* Increased for very small screens where header might be taller */
+        min-height: calc(100vh - 120px);
+      }
+      
+      .hero-content {
+        padding-top: 1rem; /* Reduced top padding on very small screens */
       }
     }
 
@@ -430,6 +467,7 @@
       
       .hero-card {
         padding: 2rem 1.5rem;
+        margin-top: 0.5rem; /* Added small margin to push card down */
       }
       
       .hero-title {
