@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Thug Coding® Network – Three Stations Dashboard</title>
+  <title>Thug Coding® Radio </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="ThugCoding® Network — Three stations in one dashboard: Tech radio, language learning, and curated music." />
 
@@ -270,103 +270,14 @@
       padding: 2rem 1.5rem;
     }
 
-    /* Updated CSS for hero-card with opacity control */
     .hero-card {
       max-width: 800px;
-      background: rgba(255, 255, 255, var(--hero-card-opacity, 0.95));
+      background: rgba(255, 255, 255, 0.95);
       border-radius: var(--radius-lg);
       padding: 3rem 2.5rem;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
-      transition: background-color 0.3s ease;
-    }
-
-    /* Add an opacity control interface */
-    .opacity-control {
-      position: fixed;
-      top: 120px;
-      right: 20px;
-      z-index: 1000;
-      background: white;
-      padding: 15px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 180px;
-    }
-
-    .opacity-control h4 {
-      font-size: 0.9rem;
-      margin: 0 0 5px 0;
-      color: var(--text-main);
-    }
-
-    .opacity-slider {
-      width: 100%;
-      height: 6px;
-      -webkit-appearance: none;
-      appearance: none;
-      background: var(--border-soft);
-      border-radius: 3px;
-      outline: none;
-    }
-
-    .opacity-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .opacity-slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .opacity-value {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 5px;
-    }
-
-    .opacity-reset {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: var(--radius-md);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: opacity 0.2s ease;
-    }
-
-    .opacity-reset:hover {
-      opacity: 0.9;
-    }
-
-    @media (max-width: 768px) {
-      .opacity-control {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-        left: 20px;
-        width: auto;
-      }
     }
 
     .hero-kicker {
@@ -1307,7 +1218,7 @@
         </div>
         <div class="brand-text">
           <div class="brand-title">Thug Coding® Radio</div>
-          <div class="brand-tagline">Always On. Never Off</div>
+          <div class="brand-tagline">Always On · Never Off</div>
         </div>
       </a>
       <nav class="nav">
@@ -1392,7 +1303,7 @@
             <div class="player-logo">&lt;/&gt;</div>
             <div>
               <div class="player-meta-title">ThugCoding® Radio</div>
-              <div class="player-meta-sub">Code · Culture · Communication</div>
+              <div class="player-meta-sub">Code · Culture · Broadcast Systems</div>
             </div>
           </div>
           <div class="player-status-pill">
@@ -1596,7 +1507,7 @@
             <div class="player-logo">🎵</div>
             <div>
               <div class="player-meta-title">Music for You</div>
-              <div class="player-meta-sub">The Genres You Like · 24/7 Stream</div>
+              <div class="player-meta-sub">Curated Music · 24/7 Stream</div>
             </div>
           </div>
           <div class="player-status-pill">
@@ -1698,7 +1609,7 @@
     <div class="max-width">
       <div class="shows-header">
         <h2>Shows & Hosts</h2>
-        <p>Meet the voices behind ThugCoding® Radio. Each host brings unique perspective from tech, musick, culture, and innovation.</p>
+        <p>Meet the voices behind ThugCoding® Radio. Each host brings unique perspective from tech, culture, and innovation.</p>
       </div>
 
       <div class="shows-container">
@@ -1732,20 +1643,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Opacity Control Panel -->
-  <div class="opacity-control">
-    <h4>Card Opacity</h4>
-    <input type="range" 
-           min="0.1" 
-           max="1" 
-           step="0.05" 
-           value="0.95" 
-           class="opacity-slider" 
-           id="opacitySlider">
-    <div class="opacity-value" id="opacityValue">95%</div>
-    <button class="opacity-reset" id="opacityReset">Reset to Default</button>
-  </div>
 
   <script>
     // ===== HERO SLIDESHOW =====
@@ -2359,172 +2256,135 @@
     setInterval(fetchLanguageLabNowPlaying, 15000);
     setInterval(fetchMusicForYouNowPlaying, 15000);
 
-    // ===== OPACITY CONTROL =====
-    const opacitySlider = document.getElementById('opacitySlider');
-    const opacityValue = document.getElementById('opacityValue');
-    const opacityReset = document.getElementById('opacityReset');
-
-    // Set initial CSS variable
-    document.documentElement.style.setProperty('--hero-card-opacity', '0.95');
-
-    // Update opacity when slider changes
-    opacitySlider.addEventListener('input', function() {
-      const value = this.value;
-      opacityValue.textContent = `${Math.round(value * 100)}%`;
-      document.documentElement.style.setProperty('--hero-card-opacity', value);
-    });
-
-    // Reset to default
-    opacityReset.addEventListener('click', function() {
-      opacitySlider.value = 0.95;
-      opacityValue.textContent = '95%';
-      document.documentElement.style.setProperty('--hero-card-opacity', '0.95');
-    });
-
-    // Load saved opacity from localStorage if available
-    window.addEventListener('load', function() {
-      const savedOpacity = localStorage.getItem('heroCardOpacity');
-      if (savedOpacity) {
-        opacitySlider.value = savedOpacity;
-        opacityValue.textContent = `${Math.round(savedOpacity * 100)}%`;
-        document.documentElement.style.setProperty('--hero-card-opacity', savedOpacity);
-      }
-    });
-
-    // Save opacity to localStorage when changed
-    opacitySlider.addEventListener('change', function() {
-      localStorage.setItem('heroCardOpacity', this.value);
-    });
-
     // ===== SHOWS & HOSTS DATA =====
-    const showsData = [
-      {
-        host: "DJ CodeFlow",
-        title: "Midnight Syntax",
-        location: "Brooklyn, NY",
-        description: "Late-night coding sessions mixed with underground hip-hop. Discussing backend architecture over beats.",
-        image: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Tech Empress",
-        title: "Cloud Queens",
-        location: "Atlanta, GA",
-        description: "Women in tech leadership, cloud infrastructure, and building generational wealth through code.",
-        image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Binary Breeze",
-        title: "Frontend Frequencies",
-        location: "Los Angeles, CA",
-        description: "UI/UX design principles, creative coding, and the intersection of design and development.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Data Druid",
-        title: "Analytics & Algorithms",
-        location: "Chicago, IL",
-        description: "Data science, machine learning, and turning raw data into actionable insights for communities.",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Cyber Shaman",
-        title: "Security Sanctuary",
-        location: "Miami, FL",
-        description: "Cybersecurity, digital privacy, and protecting community assets in the digital age.",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "API Alchemist",
-        title: "Integration Station",
-        location: "Houston, TX",
-        description: "APIs, microservices, and connecting disparate systems to create powerful new solutions.",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "DevOps Duchess",
-        title: "Pipeline Paradise",
-        location: "Seattle, WA",
-        description: "CI/CD pipelines, automation, and building resilient systems that scale with community needs.",
-        image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Blockchain Baron",
-        title: "Decentralized Dialogues",
-        location: "Detroit, MI",
-        description: "Web3, blockchain technology, and creating equitable financial systems for marginalized communities.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Mobile Maestro",
-        title: "App Avenue",
-        location: "Austin, TX",
-        description: "Mobile development, React Native, Flutter, and building apps that serve community needs.",
-        image: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "VR Visionary",
-        title: "Virtual Realities",
-        location: "San Francisco, CA",
-        description: "VR/AR development, immersive experiences, and the future of spatial computing.",
-        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "AI Architect",
-        title: "Neural Networks",
-        location: "Boston, MA",
-        description: "Artificial intelligence, ethical AI development, and using machine learning for social good.",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Game Developer G",
-        title: "Pixel Perfect",
-        location: "Orlando, FL",
-        description: "Game development, Unity, Unreal Engine, and creating games that tell our stories.",
-        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Open Source OG",
-        title: "Community Code",
-        location: "Portland, OR",
-        description: "Open source contributions, community projects, and collaborative development.",
-        image: "https://images.unsplash.com/photo-1507591064344-4c6ce005-128?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Startup Sage",
-        title: "Founder Frequency",
-        location: "Denver, CO",
-        description: "Tech entrepreneurship, startup funding, and building businesses that solve real problems.",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Education Evangelist",
-        title: "Learn & Earn",
-        location: "Washington, DC",
-        description: "Tech education, coding bootcamps, and creating accessible pathways into tech careers.",
-        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Networking Ninja",
-        title: "Connect & Conquer",
-        location: "Philadelphia, PA",
-        description: "Networking, career development, and building professional relationships in tech.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Digital Storyteller",
-        title: "Code & Content",
-        location: "Nashville, TN",
-        description: "Content creation, developer advocacy, and telling compelling stories about technology.",
-        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      },
-      {
-        host: "Infrastructure Icon",
-        title: "System Strength",
-        location: "Phoenix, AZ",
-        description: "Infrastructure as code, cloud architecture, and building systems that withstand anything.",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800&q=80"
-      }
-    ];
+const showsData = [
+  {
+    host: "DJ CodeFlow",
+    title: "Midnight Syntax",
+    location: "Brooklyn, NY",
+    description: "Late-night coding sessions mixed with underground hip-hop. Discussing backend architecture over beats.",
+    image: "images/crew1.jpg"
+  },
+  {
+    host: "Tech Empress",
+    title: "Cloud Queens",
+    location: "Atlanta, GA",
+    description: "Women in tech leadership, cloud infrastructure, and building generational wealth through code.",
+    image: "images/crew2.jpg"
+  },
+  {
+    host: "Binary Breeze",
+    title: "Frontend Frequencies",
+    location: "Los Angeles, CA",
+    description: "UI/UX design principles, creative coding, and the intersection of design and development.",
+    image: "images/crew3.jpg"
+  },
+  {
+    host: "Data Druid",
+    title: "Analytics & Algorithms",
+    location: "Chicago, IL",
+    description: "Data science, machine learning, and turning raw data into actionable insights for communities.",
+    image: "images/crew4.jpg"
+  },
+  {
+    host: "Cyber Shaman",
+    title: "Security Sanctuary",
+    location: "Miami, FL",
+    description: "Cybersecurity, digital privacy, and protecting community assets in the digital age.",
+    image: "images/crew5.jpg"
+  },
+  {
+    host: "API Alchemist",
+    title: "Integration Station",
+    location: "Houston, TX",
+    description: "APIs, microservices, and connecting disparate systems to create powerful new solutions.",
+    image: "images/crew6.jpg"
+  },
+  {
+    host: "DevOps Duchess",
+    title: "Pipeline Paradise",
+    location: "Seattle, WA",
+    description: "CI/CD pipelines, automation, and building resilient systems that scale with community needs.",
+    image: "images/crew7.jpg"
+  },
+  {
+    host: "Blockchain Baron",
+    title: "Decentralized Dialogues",
+    location: "Detroit, MI",
+    description: "Web3, blockchain technology, and creating equitable financial systems for marginalized communities.",
+    image: "images/crew8.jpg"
+  },
+  {
+    host: "Mobile Maestro",
+    title: "App Avenue",
+    location: "Austin, TX",
+    description: "Mobile development, React Native, Flutter, and building apps that serve community needs.",
+    image: "images/crew9.jpg"
+  },
+  {
+    host: "VR Visionary",
+    title: "Virtual Realities",
+    location: "San Francisco, CA",
+    description: "VR/AR development, immersive experiences, and the future of spatial computing.",
+    image: "images/crew10.jpg"
+  },
+  {
+    host: "AI Architect",
+    title: "Neural Networks",
+    location: "Boston, MA",
+    description: "Artificial intelligence, ethical AI development, and using machine learning for social good.",
+    image: "images/crew11.jpg"
+  },
+  {
+    host: "Game Developer G",
+    title: "Pixel Perfect",
+    location: "Orlando, FL",
+    description: "Game development, Unity, Unreal Engine, and creating games that tell our stories.",
+    image: "images/crew12.jpg"
+  },
+  {
+    host: "Open Source OG",
+    title: "Community Code",
+    location: "Portland, OR",
+    description: "Open source contributions, community projects, and collaborative development.",
+    image: "images/crew13.jpg"
+  },
+  {
+    host: "Startup Sage",
+    title: "Founder Frequency",
+    location: "Denver, CO",
+    description: "Tech entrepreneurship, startup funding, and building businesses that solve real problems.",
+    image: "images/crew14.jpg"
+  },
+  {
+    host: "Education Evangelist",
+    title: "Learn & Earn",
+    location: "Washington, DC",
+    description: "Tech education, coding bootcamps, and creating accessible pathways into tech careers.",
+    image: "images/crew15.jpg"
+  },
+  {
+    host: "Networking Ninja",
+    title: "Connect & Conquer",
+    location: "Philadelphia, PA",
+    description: "Networking, career development, and building professional relationships in tech.",
+    image: "images/crew16.jpg"
+  },
+  {
+    host: "Digital Storyteller",
+    title: "Code & Content",
+    location: "Nashville, TN",
+    description: "Content creation, developer advocacy, and telling compelling stories about technology.",
+    image: "images/crew17.jpg"
+  },
+  {
+    host: "Infrastructure Icon",
+    title: "System Strength",
+    location: "Phoenix, AZ",
+    description: "Infrastructure as code, cloud architecture, and building systems that withstand anything.",
+    image: "images/crew18.jpg"
+  }
+];
 
     // ===== SHOWS CAROUSEL FUNCTIONALITY =====
     const showsGrid = document.getElementById('showsGrid');
