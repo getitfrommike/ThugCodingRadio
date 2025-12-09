@@ -77,6 +77,7 @@
       right: 0;
       z-index: 100;
       pointer-events: none;
+      padding: 0 1rem;
     }
 
     .site-header-inner {
@@ -198,15 +199,15 @@
 
     @media (max-width: 780px) {
       .site-header {
-        top: 0.5rem; /* Reduced top spacing on mobile */
-        padding: 0 1rem; /* Added padding to prevent header touching screen edges */
+        top: 0.5rem;
+        padding: 0 1rem;
       }
       
       .site-header-inner {
         flex-direction: column;
         align-items: flex-start;
         border-radius: var(--radius-md);
-        padding: 0.75rem 1rem; /* Reduced padding on mobile */
+        padding: 0.75rem 1rem;
       }
       
       .nav {
@@ -214,17 +215,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         margin-top: 0.5rem;
-        gap: 1rem; /* Added gap for better spacing */
-      }
-      
-      /* Add margin to hero to prevent header overlap */
-      .hero {
-        margin-top: 100px; /* Added to create space below fixed header */
-        min-height: calc(100vh - 100px); /* Adjust min-height to account for header */
-      }
-      
-      .hero-content {
-        padding-top: 2rem; /* Added extra padding at top for mobile */
+        gap: 1rem;
       }
     }
 
@@ -235,7 +226,7 @@
       }
       
       .site-header-inner {
-        padding: 0.5rem 0.75rem;
+        padding: 0.75rem;
       }
       
       .nav {
@@ -246,16 +237,8 @@
       
       .nav-pill {
         margin-top: 0.5rem;
-      }
-      
-      /* Adjust hero margin for very small screens */
-      .hero {
-        margin-top: 120px; /* Increased for very small screens where header might be taller */
-        min-height: calc(100vh - 120px);
-      }
-      
-      .hero-content {
-        padding-top: 1rem; /* Reduced top padding on very small screens */
+        align-self: stretch;
+        text-align: center;
       }
     }
 
@@ -265,6 +248,8 @@
       height: 100vh;
       min-height: 600px;
       overflow: hidden;
+      /* Add padding to prevent header overlap */
+      padding-top: 80px; /* Adjust based on your header height */
     }
 
     /* Fullscreen slideshow */
@@ -305,6 +290,8 @@
       justify-content: center;
       text-align: center;
       padding: 2rem 1.5rem;
+      /* Adjust for mobile */
+      padding-top: 1rem;
     }
 
     .hero-card {
@@ -460,6 +447,17 @@
       margin-left: 0.25rem;
     }
 
+    @media (max-width: 780px) {
+      .hero {
+        padding-top: 120px; /* More padding for mobile header */
+        min-height: calc(100vh - 120px);
+      }
+      
+      .hero-content {
+        padding-top: 0.5rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .hero {
         min-height: 500px;
@@ -467,7 +465,6 @@
       
       .hero-card {
         padding: 2rem 1.5rem;
-        margin-top: 0.5rem; /* Added small margin to push card down */
       }
       
       .hero-title {
@@ -481,6 +478,7 @@
 
     @media (max-width: 480px) {
       .hero {
+        padding-top: 140px; /* Even more padding for very small screens */
         min-height: 400px;
       }
       
